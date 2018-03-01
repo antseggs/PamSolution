@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PamProjectModelStoreContainer" CdmEntityContainer="PamProjectEntities2">
+    <EntitySetMapping Name="accessLogs">
+      <EntityTypeMapping TypeName="PamProjectModel.accessLog">
+        <MappingFragment StoreEntitySet="accessLog">
+          <ScalarProperty Name="accessLogId" ColumnName="accessLogId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="accessTime" ColumnName="accessTime" />
+          <ScalarProperty Name="standardAccountId" ColumnName="standardAccountId" />
+          <ScalarProperty Name="permissionLevelId" ColumnName="permissionLevelId" />
+          <ScalarProperty Name="userNote" ColumnName="userNote" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="accountGroups">
+      <EntityTypeMapping TypeName="PamProjectModel.accountGroup">
+        <MappingFragment StoreEntitySet="accountGroup">
+          <ScalarProperty Name="accountGroupId" ColumnName="accountGroupId" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="groupDescription" ColumnName="groupDescription" />
+          <ScalarProperty Name="permissionLevels" ColumnName="permissionLevels" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="activeSessions">
+      <EntityTypeMapping TypeName="PamProjectModel.activeSession">
+        <MappingFragment StoreEntitySet="activeSessions">
+          <ScalarProperty Name="sessionId" ColumnName="sessionId" />
+          <ScalarProperty Name="sessionToken" ColumnName="sessionToken" />
+          <ScalarProperty Name="expireTime" ColumnName="expireTime" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="automationScripts">
+      <EntityTypeMapping TypeName="PamProjectModel.automationScript">
+        <MappingFragment StoreEntitySet="automationScript">
+          <ScalarProperty Name="automationScriptId" ColumnName="automationScriptId" />
+          <ScalarProperty Name="scriptName" ColumnName="scriptName" />
+          <ScalarProperty Name="serverOsId" ColumnName="serverOsId" />
+          <ScalarProperty Name="scriptText" ColumnName="scriptText" />
+          <ScalarProperty Name="serverAccessLevelId" ColumnName="serverAccessLevelId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="PamProjectModel.department">
+        <MappingFragment StoreEntitySet="department">
+          <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="desktopLogs">
+      <EntityTypeMapping TypeName="PamProjectModel.desktopLog">
+        <MappingFragment StoreEntitySet="desktopLog">
+          <ScalarProperty Name="desktopLogId" ColumnName="desktopLogId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="accessTime" ColumnName="accessTime" />
+          <ScalarProperty Name="logContentLocation" ColumnName="logContentLocation" />
+          <ScalarProperty Name="permissionLevelId" ColumnName="permissionLevelId" />
+          <ScalarProperty Name="finishTime" ColumnName="finishTime" />
+          <ScalarProperty Name="userNote" ColumnName="userNote" />
+          <ScalarProperty Name="protectedAccountId" ColumnName="protectedAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="permissionLevels">
+      <EntityTypeMapping TypeName="PamProjectModel.permissionLevel">
+        <MappingFragment StoreEntitySet="permissionLevel">
+          <ScalarProperty Name="permissionLevelId" ColumnName="permissionLevelId" />
+          <ScalarProperty Name="permissionName" ColumnName="permissionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="protectedAccounts">
+      <EntityTypeMapping TypeName="PamProjectModel.protectedAccount">
+        <MappingFragment StoreEntitySet="protectedAccount">
+          <ScalarProperty Name="protectedAccountId" ColumnName="protectedAccountId" />
+          <ScalarProperty Name="accountName" ColumnName="accountName" />
+          <ScalarProperty Name="serverId" ColumnName="serverId" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="accountGroupId" ColumnName="accountGroupId" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servers">
+      <EntityTypeMapping TypeName="PamProjectModel.server">
+        <MappingFragment StoreEntitySet="server">
+          <ScalarProperty Name="serverId" ColumnName="serverId" />
+          <ScalarProperty Name="serverName" ColumnName="serverName" />
+          <ScalarProperty Name="serverOsId" ColumnName="serverOsId" />
+          <ScalarProperty Name="serverDescription" ColumnName="serverDescription" />
+          <ScalarProperty Name="serverIp" ColumnName="serverIp" />
+          <ScalarProperty Name="ipStatic" ColumnName="ipStatic" />
+          <ScalarProperty Name="fqdn" ColumnName="fqdn" />
+          <ScalarProperty Name="serverNotes" ColumnName="serverNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="serverAccessLevels">
+      <EntityTypeMapping TypeName="PamProjectModel.serverAccessLevel">
+        <MappingFragment StoreEntitySet="serverAccessLevel">
+          <ScalarProperty Name="serverAccessId" ColumnName="serverAccessId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+          <ScalarProperty Name="serverId" ColumnName="serverId" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="finishTime" ColumnName="finishTime" />
+          <ScalarProperty Name="standardAccountId" ColumnName="standardAccountId" />
+          <ScalarProperty Name="allowed" ColumnName="allowed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="serverOs">
+      <EntityTypeMapping TypeName="PamProjectModel.serverO">
+        <MappingFragment StoreEntitySet="serverOs">
+          <ScalarProperty Name="serverOsId" ColumnName="serverOsId" />
+          <ScalarProperty Name="osName" ColumnName="osName" />
+          <ScalarProperty Name="osFamilyId" ColumnName="osFamilyId" />
+          <ScalarProperty Name="osDescription" ColumnName="osDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="serverOsFamilies">
+      <EntityTypeMapping TypeName="PamProjectModel.serverOsFamily">
+        <MappingFragment StoreEntitySet="serverOsFamily">
+          <ScalarProperty Name="osFamilyId" ColumnName="osFamilyId" />
+          <ScalarProperty Name="osFamilyName" ColumnName="osFamilyName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sshLogs">
+      <EntityTypeMapping TypeName="PamProjectModel.sshLog">
+        <MappingFragment StoreEntitySet="sshLog">
+          <ScalarProperty Name="sshLogId" ColumnName="sshLogId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="accessTime" ColumnName="accessTime" />
+          <ScalarProperty Name="logContent" ColumnName="logContent" />
+          <ScalarProperty Name="permissionLevelId" ColumnName="permissionLevelId" />
+          <ScalarProperty Name="finishTime" ColumnName="finishTime" />
+          <ScalarProperty Name="userNotes" ColumnName="userNotes" />
+          <ScalarProperty Name="protectedAccountId" ColumnName="protectedAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="standardAccounts">
+      <EntityTypeMapping TypeName="PamProjectModel.standardAccount">
+        <MappingFragment StoreEntitySet="standardAccount">
+          <ScalarProperty Name="standardAccountId" ColumnName="standardAccountId" />
+          <ScalarProperty Name="accountName" ColumnName="accountName" />
+          <ScalarProperty Name="accountAddress" ColumnName="accountAddress" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="accountGroupId" ColumnName="accountGroupId" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="PamProjectModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="PamProjectModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="permissionLevelId" ColumnName="permissionLevelId" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="jobtitle" ColumnName="jobtitle" />
+          <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="lastLoginDate" ColumnName="lastLoginDate" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="PamProjectModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="PamProjectModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="PamProjectModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="PamProjectModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PamProjectModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="PamProjectModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PamProjectModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="PamProjectModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="PamProjectModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

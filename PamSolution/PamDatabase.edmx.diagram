@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="117109039fe249378ddf2ec9a46d45a1" Name="Diagram1">
+        <EntityTypeShape EntityType="PamProjectModel.accessLog" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.accountGroup" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.activeSession" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.automationScript" Width="1.5" PointX="6" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.department" Width="1.5" PointX="0.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.desktopLog" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.permissionLevel" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.protectedAccount" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.server" Width="1.5" PointX="1.5" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.serverAccessLevel" Width="1.5" PointX="3.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.serverO" Width="1.5" PointX="1.5" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.serverOsFamily" Width="1.5" PointX="1.5" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.sshLog" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.standardAccount" Width="1.5" PointX="0.75" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.sysdiagram" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamProjectModel.user" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
+        <AssociationConnector Association="PamProjectModel.FK_accessLog_permissionLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_accessLog_standardAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_accessLog_users" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_protectedAccount_accountGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_standardAccount_accountGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_activeSessions_users" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_automationScript_serverAccessLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_automationScript_serverOs" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_serverAccessLevel_department" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_users_department" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_desktopLog_permissionLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_desktopLog_protectedAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_desktopLog_protectedAccount1" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_desktopLog_users" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_sshLog_permissionLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_users_permissionLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_protectedAccount_server" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_sshLog_protectedAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_server_serverOs" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_server_serverOs1" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_serverAccessLevel_server" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_serverAccessLevel_standardAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_serverOs_serverOsFamily" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_sshLog_users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PamProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="accessLog">
+    <Key>
+      <PropertyRef Name="accessLogId" />
+    </Key>
+    <Property Name="accessLogId" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="accessTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="standardAccountId" Type="Int32" Nullable="false" />
+    <Property Name="permissionLevelId" Type="Int32" Nullable="false" />
+    <Property Name="userNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="permissionLevel" Relationship="Self.FK_accessLog_permissionLevel" FromRole="accessLog" ToRole="permissionLevel" />
+    <NavigationProperty Name="standardAccount" Relationship="Self.FK_accessLog_standardAccount" FromRole="accessLog" ToRole="standardAccount" />
+    <NavigationProperty Name="user" Relationship="Self.FK_accessLog_users" FromRole="accessLog" ToRole="users" />
+  </EntityType>
+  <EntityType Name="accountGroup">
+    <Key>
+      <PropertyRef Name="accountGroupId" />
+    </Key>
+    <Property Name="accountGroupId" Type="Int32" Nullable="false" />
+    <Property Name="groupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="groupDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="permissionLevels" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="protectedAccounts" Relationship="Self.FK_protectedAccount_accountGroup" FromRole="accountGroup" ToRole="protectedAccount" />
+    <NavigationProperty Name="standardAccounts" Relationship="Self.FK_standardAccount_accountGroup" FromRole="accountGroup" ToRole="standardAccount" />
+  </EntityType>
+  <EntityType Name="activeSession">
+    <Key>
+      <PropertyRef Name="sessionId" />
+    </Key>
+    <Property Name="sessionId" Type="Int32" Nullable="false" />
+    <Property Name="sessionToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="expireTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.FK_activeSessions_users" FromRole="activeSessions" ToRole="users" />
+  </EntityType>
+  <EntityType Name="automationScript">
+    <Key>
+      <PropertyRef Name="automationScriptId" />
+    </Key>
+    <Property Name="automationScriptId" Type="Int32" Nullable="false" />
+    <Property Name="scriptName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="serverOsId" Type="Int32" Nullable="false" />
+    <Property Name="scriptText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="serverAccessLevelId" Type="Int32" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="serverAccessLevel" Relationship="Self.FK_automationScript_serverAccessLevel" FromRole="automationScript" ToRole="serverAccessLevel" />
+    <NavigationProperty Name="serverO" Relationship="Self.FK_automationScript_serverOs" FromRole="automationScript" ToRole="serverOs" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="departmentId" />
+    </Key>
+    <Property Name="departmentId" Type="Int32" Nullable="false" />
+    <Property Name="departmentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="serverAccessLevels" Relationship="Self.FK_serverAccessLevel_department" FromRole="department" ToRole="serverAccessLevel" />
+    <NavigationProperty Name="users" Relationship="Self.FK_users_department" FromRole="department" ToRole="users" />
+  </EntityType>
+  <EntityType Name="desktopLog">
+    <Key>
+      <PropertyRef Name="desktopLogId" />
+    </Key>
+    <Property Name="desktopLogId" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="accessTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="logContentLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="permissionLevelId" Type="Int32" Nullable="false" />
+    <Property Name="finishTime" Type="DateTime" Precision="3" />
+    <Property Name="userNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="protectedAccountId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="permissionLevel" Relationship="Self.FK_desktopLog_permissionLevel" FromRole="desktopLog" ToRole="permissionLevel" />
+    <NavigationProperty Name="protectedAccount" Relationship="Self.FK_desktopLog_protectedAccount" FromRole="desktopLog" ToRole="protectedAccount" />
+    <NavigationProperty Name="protectedAccount1" Relationship="Self.FK_desktopLog_protectedAccount1" FromRole="desktopLog" ToRole="protectedAccount" />
+    <NavigationProperty Name="user" Relationship="Self.FK_desktopLog_users" FromRole="desktopLog" ToRole="users" />
+  </EntityType>
+  <EntityType Name="permissionLevel">
+    <Key>
+      <PropertyRef Name="permissionLevelId" />
+    </Key>
+    <Property Name="permissionLevelId" Type="Int32" Nullable="false" />
+    <Property Name="permissionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="accessLogs" Relationship="Self.FK_accessLog_permissionLevel" FromRole="permissionLevel" ToRole="accessLog" />
+    <NavigationProperty Name="desktopLogs" Relationship="Self.FK_desktopLog_permissionLevel" FromRole="permissionLevel" ToRole="desktopLog" />
+    <NavigationProperty Name="sshLogs" Relationship="Self.FK_sshLog_permissionLevel" FromRole="permissionLevel" ToRole="sshLog" />
+    <NavigationProperty Name="users" Relationship="Self.FK_users_permissionLevel" FromRole="permissionLevel" ToRole="users" />
+  </EntityType>
+  <EntityType Name="protectedAccount">
+    <Key>
+      <PropertyRef Name="protectedAccountId" />
+    </Key>
+    <Property Name="protectedAccountId" Type="Int32" Nullable="false" />
+    <Property Name="accountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="serverId" Type="Int32" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountGroupId" Type="Int32" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="accountGroup" Relationship="Self.FK_protectedAccount_accountGroup" FromRole="protectedAccount" ToRole="accountGroup" />
+    <NavigationProperty Name="desktopLogs" Relationship="Self.FK_desktopLog_protectedAccount" FromRole="protectedAccount" ToRole="desktopLog" />
+    <NavigationProperty Name="desktopLogs1" Relationship="Self.FK_desktopLog_protectedAccount1" FromRole="protectedAccount" ToRole="desktopLog" />
+    <NavigationProperty Name="server" Relationship="Self.FK_protectedAccount_server" FromRole="protectedAccount" ToRole="server" />
+    <NavigationProperty Name="sshLogs" Relationship="Self.FK_sshLog_protectedAccount" FromRole="protectedAccount" ToRole="sshLog" />
+  </EntityType>
+  <EntityType Name="server">
+    <Key>
+      <PropertyRef Name="serverId" />
+    </Key>
+    <Property Name="serverId" Type="Int32" Nullable="false" />
+    <Property Name="serverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="serverOsId" Type="Int32" Nullable="false" />
+    <Property Name="serverDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="serverIp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ipStatic" Type="Boolean" />
+    <Property Name="fqdn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="serverNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="protectedAccounts" Relationship="Self.FK_protectedAccount_server" FromRole="server" ToRole="protectedAccount" />
+    <NavigationProperty Name="serverO" Relationship="Self.FK_server_serverOs" FromRole="server" ToRole="serverOs" />
+    <NavigationProperty Name="serverO1" Relationship="Self.FK_server_serverOs1" FromRole="server" ToRole="serverOs" />
+    <NavigationProperty Name="serverAccessLevels" Relationship="Self.FK_serverAccessLevel_server" FromRole="server" ToRole="serverAccessLevel" />
+  </EntityType>
+  <EntityType Name="serverAccessLevel">
+    <Key>
+      <PropertyRef Name="serverAccessId" />
+    </Key>
+    <Property Name="serverAccessId" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" />
+    <Property Name="departmentId" Type="Int32" />
+    <Property Name="serverId" Type="Int32" Nullable="false" />
+    <Property Name="startTime" Type="DateTime" Precision="3" />
+    <Property Name="finishTime" Type="DateTime" Precision="3" />
+    <Property Name="standardAccountId" Type="Int32" />
+    <Property Name="allowed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="automationScripts" Relationship="Self.FK_automationScript_serverAccessLevel" FromRole="serverAccessLevel" ToRole="automationScript" />
+    <NavigationProperty Name="department" Relationship="Self.FK_serverAccessLevel_department" FromRole="serverAccessLevel" ToRole="department" />
+    <NavigationProperty Name="server" Relationship="Self.FK_serverAccessLevel_server" FromRole="serverAccessLevel" ToRole="server" />
+    <NavigationProperty Name="standardAccount" Relationship="Self.FK_serverAccessLevel_standardAccount" FromRole="serverAccessLevel" ToRole="standardAccount" />
+  </EntityType>
+  <EntityType Name="serverO">
+    <Key>
+      <PropertyRef Name="serverOsId" />
+    </Key>
+    <Property Name="serverOsId" Type="Int32" Nullable="false" />
+    <Property Name="osName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="osFamilyId" Type="Int32" Nullable="false" />
+    <Property Name="osDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="automationScripts" Relationship="Self.FK_automationScript_serverOs" FromRole="serverOs" ToRole="automationScript" />
+    <NavigationProperty Name="servers" Relationship="Self.FK_server_serverOs" FromRole="serverOs" ToRole="server" />
+    <NavigationProperty Name="servers1" Relationship="Self.FK_server_serverOs1" FromRole="serverOs" ToRole="server" />
+    <NavigationProperty Name="serverOsFamily" Relationship="Self.FK_serverOs_serverOsFamily" FromRole="serverOs" ToRole="serverOsFamily" />
+  </EntityType>
+  <EntityType Name="serverOsFamily">
+    <Key>
+      <PropertyRef Name="osFamilyId" />
+    </Key>
+    <Property Name="osFamilyId" Type="Int32" Nullable="false" />
+    <Property Name="osFamilyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="serverOs" Relationship="Self.FK_serverOs_serverOsFamily" FromRole="serverOsFamily" ToRole="serverOs" />
+  </EntityType>
+  <EntityType Name="sshLog">
+    <Key>
+      <PropertyRef Name="sshLogId" />
+    </Key>
+    <Property Name="sshLogId" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="accessTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="logContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="permissionLevelId" Type="Int32" Nullable="false" />
+    <Property Name="finishTime" Type="DateTime" Precision="3" />
+    <Property Name="userNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="protectedAccountId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="permissionLevel" Relationship="Self.FK_sshLog_permissionLevel" FromRole="sshLog" ToRole="permissionLevel" />
+    <NavigationProperty Name="protectedAccount" Relationship="Self.FK_sshLog_protectedAccount" FromRole="sshLog" ToRole="protectedAccount" />
+    <NavigationProperty Name="user" Relationship="Self.FK_sshLog_users" FromRole="sshLog" ToRole="users" />
+  </EntityType>
+  <EntityType Name="standardAccount">
+    <Key>
+      <PropertyRef Name="standardAccountId" />
+    </Key>
+    <Property Name="standardAccountId" Type="Int32" Nullable="false" />
+    <Property Name="accountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="accountGroupId" Type="Int32" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="accessLogs" Relationship="Self.FK_accessLog_standardAccount" FromRole="standardAccount" ToRole="accessLog" />
+    <NavigationProperty Name="accountGroup" Relationship="Self.FK_standardAccount_accountGroup" FromRole="standardAccount" ToRole="accountGroup" />
+    <NavigationProperty Name="serverAccessLevels" Relationship="Self.FK_serverAccessLevel_standardAccount" FromRole="standardAccount" ToRole="serverAccessLevel" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="permissionLevelId" Type="Int32" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="jobtitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="departmentId" Type="Int32" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="accessLogs" Relationship="Self.FK_accessLog_users" FromRole="users" ToRole="accessLog" />
+    <NavigationProperty Name="activeSessions" Relationship="Self.FK_activeSessions_users" FromRole="users" ToRole="activeSessions" />
+    <NavigationProperty Name="department" Relationship="Self.FK_users_department" FromRole="users" ToRole="department" />
+    <NavigationProperty Name="desktopLogs" Relationship="Self.FK_desktopLog_users" FromRole="users" ToRole="desktopLog" />
+    <NavigationProperty Name="permissionLevel" Relationship="Self.FK_users_permissionLevel" FromRole="users" ToRole="permissionLevel" />
+    <NavigationProperty Name="sshLogs" Relationship="Self.FK_sshLog_users" FromRole="users" ToRole="sshLog" />
+  </EntityType>
+  <Association Name="FK_accessLog_permissionLevel">
+    <End Role="permissionLevel" Type="Self.permissionLevel" Multiplicity="1" />
+    <End Role="accessLog" Type="Self.accessLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="permissionLevel">
+        <PropertyRef Name="permissionLevelId" />
+      </Principal>
+      <Dependent Role="accessLog">
+        <PropertyRef Name="permissionLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_accessLog_standardAccount">
+    <End Role="standardAccount" Type="Self.standardAccount" Multiplicity="1" />
+    <End Role="accessLog" Type="Self.accessLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="standardAccount">
+        <PropertyRef Name="standardAccountId" />
+      </Principal>
+      <Dependent Role="accessLog">
+        <PropertyRef Name="standardAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_accessLog_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="accessLog" Type="Self.accessLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="accessLog">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_protectedAccount_accountGroup">
+    <End Role="accountGroup" Type="Self.accountGroup" Multiplicity="0..1" />
+    <End Role="protectedAccount" Type="Self.protectedAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="accountGroup">
+        <PropertyRef Name="accountGroupId" />
+      </Principal>
+      <Dependent Role="protectedAccount">
+        <PropertyRef Name="accountGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_standardAccount_accountGroup">
+    <End Role="accountGroup" Type="Self.accountGroup" Multiplicity="0..1" />
+    <End Role="standardAccount" Type="Self.standardAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="accountGroup">
+        <PropertyRef Name="accountGroupId" />
+      </Principal>
+      <Dependent Role="standardAccount">
+        <PropertyRef Name="accountGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_activeSessions_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="activeSessions" Type="Self.activeSession" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="activeSessions">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_automationScript_serverAccessLevel">
+    <End Role="serverAccessLevel" Type="Self.serverAccessLevel" Multiplicity="1" />
+    <End Role="automationScript" Type="Self.automationScript" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="serverAccessLevel">
+        <PropertyRef Name="serverAccessId" />
+      </Principal>
+      <Dependent Role="automationScript">
+        <PropertyRef Name="serverAccessLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_automationScript_serverOs">
+    <End Role="serverOs" Type="Self.serverO" Multiplicity="1" />
+    <End Role="automationScript" Type="Self.automationScript" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="serverOs">
+        <PropertyRef Name="serverOsId" />
+      </Principal>
+      <Dependent Role="automationScript">
+        <PropertyRef Name="serverOsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_serverAccessLevel_department">
+    <End Role="department" Type="Self.department" Multiplicity="0..1" />
+    <End Role="serverAccessLevel" Type="Self.serverAccessLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="departmentId" />
+      </Principal>
+      <Dependent Role="serverAccessLevel">
+        <PropertyRef Name="departmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_department">
+    <End Role="department" Type="Self.department" Multiplicity="1" />
+    <End Role="users" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="departmentId" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="departmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_desktopLog_permissionLevel">
+    <End Role="permissionLevel" Type="Self.permissionLevel" Multiplicity="1" />
+    <End Role="desktopLog" Type="Self.desktopLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="permissionLevel">
+        <PropertyRef Name="permissionLevelId" />
+      </Principal>
+      <Dependent Role="desktopLog">
+        <PropertyRef Name="permissionLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_desktopLog_protectedAccount">
+    <End Role="protectedAccount" Type="Self.protectedAccount" Multiplicity="1" />
+    <End Role="desktopLog" Type="Self.desktopLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="protectedAccount">
+        <PropertyRef Name="protectedAccountId" />
+      </Principal>
+      <Dependent Role="desktopLog">
+        <PropertyRef Name="protectedAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_desktopLog_protectedAccount1">
+    <End Role="protectedAccount" Type="Self.protectedAccount" Multiplicity="1" />
+    <End Role="desktopLog" Type="Self.desktopLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="protectedAccount">
+        <PropertyRef Name="protectedAccountId" />
+      </Principal>
+      <Dependent Role="desktopLog">
+        <PropertyRef Name="protectedAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_desktopLog_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="desktopLog" Type="Self.desktopLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="desktopLog">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sshLog_permissionLevel">
+    <End Role="permissionLevel" Type="Self.permissionLevel" Multiplicity="1" />
+    <End Role="sshLog" Type="Self.sshLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="permissionLevel">
+        <PropertyRef Name="permissionLevelId" />
+      </Principal>
+      <Dependent Role="sshLog">
+        <PropertyRef Name="permissionLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_permissionLevel">
+    <End Role="permissionLevel" Type="Self.permissionLevel" Multiplicity="1" />
+    <End Role="users" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="permissionLevel">
+        <PropertyRef Name="permissionLevelId" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="permissionLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_protectedAccount_server">
+    <End Role="server" Type="Self.server" Multiplicity="1" />
+    <End Role="protectedAccount" Type="Self.protectedAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="server">
+        <PropertyRef Name="serverId" />
+      </Principal>
+      <Dependent Role="protectedAccount">
+        <PropertyRef Name="serverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sshLog_protectedAccount">
+    <End Role="protectedAccount" Type="Self.protectedAccount" Multiplicity="1" />
+    <End Role="sshLog" Type="Self.sshLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="protectedAccount">
+        <PropertyRef Name="protectedAccountId" />
+      </Principal>
+      <Dependent Role="sshLog">
+        <PropertyRef Name="protectedAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_server_serverOs">
+    <End Role="serverOs" Type="Self.serverO" Multiplicity="1" />
+    <End Role="server" Type="Self.server" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="serverOs">
+        <PropertyRef Name="serverOsId" />
+      </Principal>
+      <Dependent Role="server">
+        <PropertyRef Name="serverOsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_server_serverOs1">
+    <End Role="serverOs" Type="Self.serverO" Multiplicity="1" />
+    <End Role="server" Type="Self.server" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="serverOs">
+        <PropertyRef Name="serverOsId" />
+      </Principal>
+      <Dependent Role="server">
+        <PropertyRef Name="serverOsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_serverAccessLevel_server">
+    <End Role="server" Type="Self.server" Multiplicity="1" />
+    <End Role="serverAccessLevel" Type="Self.serverAccessLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="server">
+        <PropertyRef Name="serverId" />
+      </Principal>
+      <Dependent Role="serverAccessLevel">
+        <PropertyRef Name="serverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_serverAccessLevel_standardAccount">
+    <End Role="standardAccount" Type="Self.standardAccount" Multiplicity="0..1" />
+    <End Role="serverAccessLevel" Type="Self.serverAccessLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="standardAccount">
+        <PropertyRef Name="standardAccountId" />
+      </Principal>
+      <Dependent Role="serverAccessLevel">
+        <PropertyRef Name="standardAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_serverOs_serverOsFamily">
+    <End Role="serverOsFamily" Type="Self.serverOsFamily" Multiplicity="1" />
+    <End Role="serverOs" Type="Self.serverO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="serverOsFamily">
+        <PropertyRef Name="osFamilyId" />
+      </Principal>
+      <Dependent Role="serverOs">
+        <PropertyRef Name="osFamilyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sshLog_users">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="sshLog" Type="Self.sshLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="sshLog">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PamProjectEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="accessLogs" EntityType="Self.accessLog" />
+    <EntitySet Name="accountGroups" EntityType="Self.accountGroup" />
+    <EntitySet Name="activeSessions" EntityType="Self.activeSession" />
+    <EntitySet Name="automationScripts" EntityType="Self.automationScript" />
+    <EntitySet Name="departments" EntityType="Self.department" />
+    <EntitySet Name="desktopLogs" EntityType="Self.desktopLog" />
+    <EntitySet Name="permissionLevels" EntityType="Self.permissionLevel" />
+    <EntitySet Name="protectedAccounts" EntityType="Self.protectedAccount" />
+    <EntitySet Name="servers" EntityType="Self.server" />
+    <EntitySet Name="serverAccessLevels" EntityType="Self.serverAccessLevel" />
+    <EntitySet Name="serverOs" EntityType="Self.serverO" />
+    <EntitySet Name="serverOsFamilies" EntityType="Self.serverOsFamily" />
+    <EntitySet Name="sshLogs" EntityType="Self.sshLog" />
+    <EntitySet Name="standardAccounts" EntityType="Self.standardAccount" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK_accessLog_permissionLevel" Association="Self.FK_accessLog_permissionLevel">
+      <End Role="permissionLevel" EntitySet="permissionLevels" />
+      <End Role="accessLog" EntitySet="accessLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_accessLog_standardAccount" Association="Self.FK_accessLog_standardAccount">
+      <End Role="standardAccount" EntitySet="standardAccounts" />
+      <End Role="accessLog" EntitySet="accessLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_accessLog_users" Association="Self.FK_accessLog_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="accessLog" EntitySet="accessLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protectedAccount_accountGroup" Association="Self.FK_protectedAccount_accountGroup">
+      <End Role="accountGroup" EntitySet="accountGroups" />
+      <End Role="protectedAccount" EntitySet="protectedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_standardAccount_accountGroup" Association="Self.FK_standardAccount_accountGroup">
+      <End Role="accountGroup" EntitySet="accountGroups" />
+      <End Role="standardAccount" EntitySet="standardAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_activeSessions_users" Association="Self.FK_activeSessions_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="activeSessions" EntitySet="activeSessions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_automationScript_serverAccessLevel" Association="Self.FK_automationScript_serverAccessLevel">
+      <End Role="serverAccessLevel" EntitySet="serverAccessLevels" />
+      <End Role="automationScript" EntitySet="automationScripts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_automationScript_serverOs" Association="Self.FK_automationScript_serverOs">
+      <End Role="serverOs" EntitySet="serverOs" />
+      <End Role="automationScript" EntitySet="automationScripts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_serverAccessLevel_department" Association="Self.FK_serverAccessLevel_department">
+      <End Role="department" EntitySet="departments" />
+      <End Role="serverAccessLevel" EntitySet="serverAccessLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_department" Association="Self.FK_users_department">
+      <End Role="department" EntitySet="departments" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_desktopLog_permissionLevel" Association="Self.FK_desktopLog_permissionLevel">
+      <End Role="permissionLevel" EntitySet="permissionLevels" />
+      <End Role="desktopLog" EntitySet="desktopLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_desktopLog_protectedAccount" Association="Self.FK_desktopLog_protectedAccount">
+      <End Role="protectedAccount" EntitySet="protectedAccounts" />
+      <End Role="desktopLog" EntitySet="desktopLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_desktopLog_protectedAccount1" Association="Self.FK_desktopLog_protectedAccount1">
+      <End Role="protectedAccount" EntitySet="protectedAccounts" />
+      <End Role="desktopLog" EntitySet="desktopLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_desktopLog_users" Association="Self.FK_desktopLog_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="desktopLog" EntitySet="desktopLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sshLog_permissionLevel" Association="Self.FK_sshLog_permissionLevel">
+      <End Role="permissionLevel" EntitySet="permissionLevels" />
+      <End Role="sshLog" EntitySet="sshLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_permissionLevel" Association="Self.FK_users_permissionLevel">
+      <End Role="permissionLevel" EntitySet="permissionLevels" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protectedAccount_server" Association="Self.FK_protectedAccount_server">
+      <End Role="server" EntitySet="servers" />
+      <End Role="protectedAccount" EntitySet="protectedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sshLog_protectedAccount" Association="Self.FK_sshLog_protectedAccount">
+      <End Role="protectedAccount" EntitySet="protectedAccounts" />
+      <End Role="sshLog" EntitySet="sshLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_server_serverOs" Association="Self.FK_server_serverOs">
+      <End Role="serverOs" EntitySet="serverOs" />
+      <End Role="server" EntitySet="servers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_server_serverOs1" Association="Self.FK_server_serverOs1">
+      <End Role="serverOs" EntitySet="serverOs" />
+      <End Role="server" EntitySet="servers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_serverAccessLevel_server" Association="Self.FK_serverAccessLevel_server">
+      <End Role="server" EntitySet="servers" />
+      <End Role="serverAccessLevel" EntitySet="serverAccessLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_serverAccessLevel_standardAccount" Association="Self.FK_serverAccessLevel_standardAccount">
+      <End Role="standardAccount" EntitySet="standardAccounts" />
+      <End Role="serverAccessLevel" EntitySet="serverAccessLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_serverOs_serverOsFamily" Association="Self.FK_serverOs_serverOsFamily">
+      <End Role="serverOsFamily" EntitySet="serverOsFamilies" />
+      <End Role="serverOs" EntitySet="serverOs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sshLog_users" Association="Self.FK_sshLog_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="sshLog" EntitySet="sshLogs" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(PamProjectModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(PamProjectModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
