@@ -198,6 +198,19 @@
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PamController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\SshLogController.cs" />
+    <Compile Include="Controllers\DesktopLogController.cs" />
+    <Compile Include="Controllers\AccessLogController.cs" />
+    <Compile Include="Controllers\AutomationController.cs" />
+    <Compile Include="Controllers\ProtectedAccountController.cs" />
+    <Compile Include="Controllers\StandardAccountController.cs" />
+    <Compile Include="Controllers\serverAccessLevelController.cs" />
+    <Compile Include="Controllers\serverOsFamilyController.cs" />
+    <Compile Include="Controllers\accountGroupController.cs" />
+    <Compile Include="Controllers\ServerOsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ServersController.cs" />
     <Compile Include="department.cs">
