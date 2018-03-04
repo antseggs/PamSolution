@@ -11,10 +11,11 @@ namespace PamSolution.Controllers
     {
         //This controller is not complete!
 
-        // GET api/values
+        // GET api/Users
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "", "value2" };
+            
         }
 
         // GET api/values/5

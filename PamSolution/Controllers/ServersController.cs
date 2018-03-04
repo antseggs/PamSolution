@@ -9,6 +9,12 @@ namespace PamSolution.Controllers
 {
     public class ServersController : ApiController
     {
+        // This controller is not complete
+        // This controller should do a few things
+        // First it should be able to check a user has correct permissions using the session then add a server, delete a server, edit a server.
+        // Next it should return a list of servers and attributes to the application. 
+        
+
         // GET api/values
         public IEnumerable<string> Get()
         {
