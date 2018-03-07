@@ -22,7 +22,9 @@ namespace PamSolution.Controllers
         //This should take a post request of the username and password sent over https then return a random string which has been entered into the sessions table or rerurn "FAIL"
         //Delete function will remain and will be run with no params this will delete any fields old than 1 day from the table (This could then be run automatically)
 
-            // This function still requires input sanitation!!!
+            // This function still requires input sanitation!
+            // UPDATE LOGIN TIME ON USER!
+            // Delete any existing sessions for the user!
 
         // POST api/Authenticate
         public string Post([FromBody]string value)
