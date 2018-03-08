@@ -67,7 +67,6 @@ namespace PamSolution.Controllers
 
                         // create session in sessions table and return the session key
                         string sql = "INSERT INTO activeSessions (sessionToken, expireTime, userId) VALUES ('" + returnValue + "','" + DateTime.Now.AddHours(12) + "','" + authenitcationUser.userId + "');";
-
                         ctx.Database.ExecuteSqlCommand(sql);
                     }
                 }
