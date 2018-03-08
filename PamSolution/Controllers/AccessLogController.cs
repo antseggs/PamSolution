@@ -23,7 +23,6 @@ namespace PamSolution.Controllers
 
     public class AccessLogController : ApiController
     {
-        //This controller is not complete!
         //This controller should accept new logs from any logged in user. 
         //This controller should delete logs that are older than a date that the controller is given.(ADMIN ONLY)
 
