@@ -50,7 +50,7 @@ namespace PamSolution.Controllers
 
         // POST api/Users/getAll
         [HttpPost, Route("api/users/getAll")]
-        public string getAll([FromBody]string value)
+        public string GetAll([FromBody]string value)
         {
             //Get the information from the application
             string returnValue = "fail";

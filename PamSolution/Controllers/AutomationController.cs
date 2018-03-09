@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,32 +11,42 @@ namespace PamSolution.Controllers
     public class AutomationController : ApiController
     {
         //This controller is not complete!
+        // This controller should get all automations the loged in user can run
+        // no extra functionality is required at this point but will likely be added at a later date to expand the system.
 
-        // GET api/values
-        public IEnumerable<string> Get()
+        // POST api/automation/getAll
+        [HttpPost, Route("api/automation/getAll")]
+        public string GetAll([FromBody]string value)
         {
-            return new string[] { "value1", "value2" };
-        }
+            //Get the information from the application
+            string returnValue = "fail";
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+            try
+            {
+                using (var ctx = new PamProjectEntities2())
+                {
+                    UserGetList postUser = JsonConvert.DeserializeObject<UserGetList>(value);
+                    //Is session active?
+                    var userSession = ctx.activeSessions.SqlQuery("SELECT * FROM activeSessions WHERE sessionToken LIKE '" + postUser.SessionKey + "';").FirstOrDefault<activeSession>();
+                    if (userSession.expireTime >= DateTime.Now)
+                    {
+                        //Get user access level    
+                        serverAccessLevel currentUserLevel = new serverAccessLevel();
+                        currentUserLevel = ctx.Database.SqlQuery<serverAccessLevel>("SELECT * FROM serverAccessLevel WHERE usersId = " + userSession.userId + ";").FirstOrDefault();
 
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
+                        //Return Json List of users
+                        List<UserGeneral> userList = new List<UserGeneral>();
+                        userList = ctx.Database.SqlQuery<UserGeneral>("SELECT * FROM automationScript WHERE serverAccessLevelId = " + currentUserLevel.serverAccessId + ";").ToList();
+                        returnValue = JsonConvert.SerializeObject(userList);
+                    }
+                }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
+            }
+            catch (Exception e)
+            {
+                returnValue = "Failed! - Exception - " + e;
+            }
+            return returnValue;
         }
     }
 }
