@@ -86,7 +86,7 @@ namespace PamSolution.Controllers
 
         [HttpPost, Route("api/users/getSelf")]
         // POST api/users/getSelf
-        public string getSelf([FromBody]string value)
+        public string GetSelf([FromBody]string value)
         {
             // Check user is logged in
             string returnValue = "fail";

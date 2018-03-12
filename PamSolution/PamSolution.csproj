@@ -207,9 +207,9 @@
     <Compile Include="Controllers\AutomationController.cs" />
     <Compile Include="Controllers\ProtectedAccountController.cs" />
     <Compile Include="Controllers\StandardAccountController.cs" />
-    <Compile Include="Controllers\serverAccessLevelController.cs" />
-    <Compile Include="Controllers\serverOsFamilyController.cs" />
-    <Compile Include="Controllers\accountGroupController.cs" />
+    <Compile Include="Controllers\ServerAccessLevelController.cs" />
+    <Compile Include="Controllers\ServerOsFamilyController.cs" />
+    <Compile Include="Controllers\AccountGroupController.cs" />
     <Compile Include="Controllers\ServerOsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ServersController.cs" />
