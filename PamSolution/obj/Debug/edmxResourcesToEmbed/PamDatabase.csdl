@@ -135,6 +135,7 @@
     <NavigationProperty Name="department" Relationship="Self.FK_serverAccessLevel_department" FromRole="serverAccessLevel" ToRole="department" />
     <NavigationProperty Name="server" Relationship="Self.FK_serverAccessLevel_server" FromRole="serverAccessLevel" ToRole="server" />
     <NavigationProperty Name="standardAccount" Relationship="Self.FK_serverAccessLevel_standardAccount" FromRole="serverAccessLevel" ToRole="standardAccount" />
+    <NavigationProperty Name="user" Relationship="PamProjectModel.FK_serverAccessLevel_users" FromRole="serverAccessLevel" ToRole="user" />
   </EntityType>
   <EntityType Name="serverO">
     <Key>
@@ -188,16 +189,6 @@
     <NavigationProperty Name="accountGroup" Relationship="Self.FK_standardAccount_accountGroup" FromRole="standardAccount" ToRole="accountGroup" />
     <NavigationProperty Name="serverAccessLevels" Relationship="Self.FK_serverAccessLevel_standardAccount" FromRole="standardAccount" ToRole="serverAccessLevel" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="user">
     <Key>
       <PropertyRef Name="userId" />
@@ -218,6 +209,7 @@
     <NavigationProperty Name="desktopLogs" Relationship="Self.FK_desktopLog_users" FromRole="users" ToRole="desktopLog" />
     <NavigationProperty Name="permissionLevel" Relationship="Self.FK_users_permissionLevel" FromRole="users" ToRole="permissionLevel" />
     <NavigationProperty Name="sshLogs" Relationship="Self.FK_sshLog_users" FromRole="users" ToRole="sshLog" />
+    <NavigationProperty Name="serverAccessLevels" Relationship="PamProjectModel.FK_serverAccessLevel_users" FromRole="user" ToRole="serverAccessLevel" />
   </EntityType>
   <Association Name="FK_accessLog_permissionLevel">
     <End Role="permissionLevel" Type="Self.permissionLevel" Multiplicity="1" />
@@ -522,7 +514,6 @@
     <EntitySet Name="serverOsFamilies" EntityType="Self.serverOsFamily" />
     <EntitySet Name="sshLogs" EntityType="Self.sshLog" />
     <EntitySet Name="standardAccounts" EntityType="Self.standardAccount" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="users" EntityType="Self.user" />
     <AssociationSet Name="FK_accessLog_permissionLevel" Association="Self.FK_accessLog_permissionLevel">
       <End Role="permissionLevel" EntitySet="permissionLevels" />
@@ -650,6 +641,10 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <AssociationSet Name="FK_serverAccessLevel_users" Association="PamProjectModel.FK_serverAccessLevel_users">
+      <End Role="user" EntitySet="users" />
+      <End Role="serverAccessLevel" EntitySet="serverAccessLevels" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -662,4 +657,16 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <Association Name="FK_serverAccessLevel_users">
+    <End Type="PamProjectModel.user" Role="user" Multiplicity="0..1" />
+    <End Type="PamProjectModel.serverAccessLevel" Role="serverAccessLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="serverAccessLevel">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

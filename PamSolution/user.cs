@@ -21,6 +21,7 @@ namespace PamSolution
             this.activeSessions = new HashSet<activeSession>();
             this.desktopLogs = new HashSet<desktopLog>();
             this.sshLogs = new HashSet<sshLog>();
+            this.serverAccessLevels = new HashSet<serverAccessLevel>();
         }
     
         public int userId { get; set; }
@@ -44,5 +45,7 @@ namespace PamSolution
         public virtual permissionLevel permissionLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sshLog> sshLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<serverAccessLevel> serverAccessLevels { get; set; }
     }
 }

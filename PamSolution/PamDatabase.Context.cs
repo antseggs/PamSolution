@@ -41,7 +41,6 @@ namespace PamSolution
         public virtual DbSet<serverOsFamily> serverOsFamilies { get; set; }
         public virtual DbSet<sshLog> sshLogs { get; set; }
         public virtual DbSet<standardAccount> standardAccounts { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

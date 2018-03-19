@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="PamProjectModel.serverOsFamily" Width="1.5" PointX="1.5" PointY="27.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PamProjectModel.sshLog" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PamProjectModel.standardAccount" Width="1.5" PointX="0.75" PointY="30.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamProjectModel.sysdiagram" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PamProjectModel.user" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
         <AssociationConnector Association="PamProjectModel.FK_accessLog_permissionLevel" ManuallyRouted="false" />
         <AssociationConnector Association="PamProjectModel.FK_accessLog_standardAccount" ManuallyRouted="false" />
@@ -45,6 +44,7 @@
         <AssociationConnector Association="PamProjectModel.FK_serverAccessLevel_standardAccount" ManuallyRouted="false" />
         <AssociationConnector Association="PamProjectModel.FK_serverOs_serverOsFamily" ManuallyRouted="false" />
         <AssociationConnector Association="PamProjectModel.FK_sshLog_users" ManuallyRouted="false" />
+        <AssociationConnector Association="PamProjectModel.FK_serverAccessLevel_users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

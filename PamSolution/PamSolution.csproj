@@ -269,9 +269,6 @@
     <Compile Include="standardAccount.cs">
       <DependentUpon>PamDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>PamDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="user.cs">
       <DependentUpon>PamDatabase.tt</DependentUpon>
     </Compile>

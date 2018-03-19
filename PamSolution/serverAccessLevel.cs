@@ -34,5 +34,6 @@ namespace PamSolution
         public virtual department department { get; set; }
         public virtual server server { get; set; }
         public virtual standardAccount standardAccount { get; set; }
+        public virtual user user { get; set; }
     }
 }
