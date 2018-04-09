@@ -102,3 +102,4 @@ C:\Users\antho\OneDrive\Documents\GitHub\PamSolution\PamSolution\obj\Debug\PamSo
 C:\Users\antho\OneDrive\Documents\GitHub\PamSolution\PamSolution\obj\Debug\PamSolution.csproj.CoreCompileInputs.cache
 C:\Users\antho\OneDrive\Documents\GitHub\PamSolution\PamSolution\obj\Debug\PamSolution.dll
 C:\Users\antho\OneDrive\Documents\GitHub\PamSolution\PamSolution\obj\Debug\PamSolution.pdb
+C:\Users\antho\OneDrive\Documents\GitHub\PamSolution\PamSolution\obj\Debug\PamSolution.csproj.CopyComplete
