@@ -31,10 +31,11 @@ namespace PamSolution.Controllers
     {
         // POST api/protectedAccount/getall
         [HttpPost, Route("api/protectedAccount/getAll")]
-        public string GetAll([FromBody]string value)
+        public List<serverAccessLevel> GetAll([FromBody]string value)
         {
             //Get the information from the application Get all access for a user.
-            string returnValue = "fail";
+            //string returnValue = "fail";
+            List<serverAccessLevel> returnValue = new List<serverAccessLevel>();
 
             try
             {
@@ -52,7 +53,7 @@ namespace PamSolution.Controllers
                             //Return Json List of levels
                             List<serverAccessLevel> levelList = new List<serverAccessLevel>();
                             levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT * FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
-                            returnValue = JsonConvert.SerializeObject(levelList);
+                            returnValue = levelList;
                         }else
                         {
                             if (accessUser.userId == postUser.Id)
@@ -60,16 +61,16 @@ namespace PamSolution.Controllers
                                 //Return Json List of levels
                                 List<serverAccessLevel> levelList = new List<serverAccessLevel>();
                                 levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT * FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
-                                returnValue = JsonConvert.SerializeObject(levelList);
+                                returnValue = levelList;
                             }
                         }
                     }
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                returnValue = "Failed! - Exception - " + e;
+                //returnValue = "Failed! - Exception - " + e;
             }
             return returnValue;
         }
