@@ -52,7 +52,7 @@ namespace PamSolution.Controllers
                         {
                             //Return Json List of levels
                             List<serverAccessLevel> levelList = new List<serverAccessLevel>();
-                            levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT * FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
+                            levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT ServerAccessId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
                             returnValue = levelList;
                         }else
                         {
@@ -60,7 +60,7 @@ namespace PamSolution.Controllers
                             {
                                 //Return Json List of levels
                                 List<serverAccessLevel> levelList = new List<serverAccessLevel>();
-                                levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT * FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
+                                levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT ServerAccessId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
                                 returnValue = levelList;
                             }
                         }
