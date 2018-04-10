@@ -86,7 +86,7 @@ namespace PamSolution.Controllers
 
         [HttpPost, Route("api/users/getSelf")]
         // POST api/users/getSelf
-        public string GetSelf([FromBody]string value)
+        public UserGeneral GetSelf([FromBody]string value)
         {
             // Check user is logged in
             string returnValue = "fail";
@@ -102,15 +102,17 @@ namespace PamSolution.Controllers
                     {
                         // Return there own user details
                         UserGeneral self = ctx.Database.SqlQuery<UserGeneral>("SELECT * FROM users WHERE userId = " + userSession.userId +";").FirstOrDefault<UserGeneral>();
-                        returnValue = JsonConvert.SerializeObject(self);
+                        //returnValue = JsonConvert.SerializeObject(self);
+                        return self;
                     }
                 }
             }
             catch (Exception e)
             {
-                returnValue = "Failed! - Exception - " + e;
+               returnValue = "Failed! - Exception - " + e;
             }
-            return returnValue;
+            //return returnValue;
+            return new UserGeneral();
         }
 
         // POST api/users
