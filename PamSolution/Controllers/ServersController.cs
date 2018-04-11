@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,6 +22,23 @@ namespace PamSolution.Controllers
         public bool IpStatic { get; set; }
     }
 
+    public class ServerNoInher
+    {
+        public int ServerId { get; set; }
+        public int ServerOsId { get; set; }
+        public string ServerName { get; set; }
+        public string ServerDescription { get; set; }
+        public string ServerIp { get; set; }
+        public string Fqdn { get; set; }
+        public string ServerNote { get; set; }
+        public bool IpStatic { get; set; }
+
+        public static implicit operator ServerNoInher(DbRawSqlQuery<ServerNoInher> v)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class ServersController : ApiController
     {
         // This controller is not complete
@@ -30,10 +48,10 @@ namespace PamSolution.Controllers
 
         // POST api/server/get
         [HttpPost, Route("api/servers/get")]
-        public string Get([FromBody]string value)
+        public ServerNoInher Get([FromBody]string value)
         {
             //Get the information from the application Get all access for a user.
-            string returnValue = "fail";
+            ServerNoInher returnValue = new ServerNoInher();
 
             try
             {
@@ -44,17 +62,19 @@ namespace PamSolution.Controllers
                     var userSession = ctx.activeSessions.SqlQuery("SELECT * FROM activeSessions WHERE sessionToken LIKE '" + postUser.SessionKey + "';").FirstOrDefault<activeSession>();
                     if (userSession.expireTime >= DateTime.Now)
                     {
-                            //Return Json List of levels
-                            List<server> levelList = new List<server>();
-                            levelList = ctx.Database.SqlQuery<server>("SELECT * FROM server WHERE serverId = " + postUser.Id + ";").ToList();
-                            returnValue = JsonConvert.SerializeObject(levelList);
+                        //Return 
+                        //List<ServerNoInher> levelList = new List<ServerNoInher>();
+                        //levelList = ctx.Database.SqlQuery<ServerNoInher>("SELECT * FROM server WHERE serverId = " + postUser.Id + ";").ToList();
+                        //returnValue = JsonConvert.SerializeObject(levelList);
+                        var reter = ctx.Database.SqlQuery<ServerNoInher>("SELECT * FROM server WHERE serverId = " + postUser.Id + ";").FirstOrDefault<ServerNoInher>();
+                        returnValue = reter;
                     }
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                returnValue = "Failed! - Exception - " + e;
+                //returnValue = "Failed! - Exception - " + e;
             }
             return returnValue;
         }

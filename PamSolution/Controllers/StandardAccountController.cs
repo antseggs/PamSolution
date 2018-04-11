@@ -20,6 +20,17 @@ namespace PamSolution.Controllers
         public string Note { get; set; }
     }
 
+    public class StdAcc
+    {
+        public int StandardAccountId { get; set; }
+        public string AccountName { get; set; }
+        public string AccountAddress { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public int? AccountGroupId { get; set; }
+        public string Note { get; set; }
+    }
+
     public class StandardAccountController : ApiController
     {
         // Get an account for a server available to that user. (TICK)
@@ -29,10 +40,10 @@ namespace PamSolution.Controllers
 
         // POST api/standardAccount/get
         [HttpPost, Route("api/standardAccount/get")]
-        public string GetAll([FromBody]string value)
+        public StdAcc GetAll([FromBody]string value)
         {
             //Get the information from the application
-            string returnValue = "fail";
+            StdAcc returnValue = new StdAcc();
 
             try
             {
@@ -44,14 +55,15 @@ namespace PamSolution.Controllers
                     if (userSession.expireTime >= DateTime.Now)
                     {
                         //Return Json account details
-                        returnValue = JsonConvert.SerializeObject(ctx.Database.SqlQuery<protectedAccount>("SELECT * FROM protectedAccount WHERE serverId = " + postUser.Id).FirstOrDefault());
+                        var reter = ctx.Database.SqlQuery<StdAcc>("SELECT * FROM standardAccount WHERE standardAccountId = " + postUser.Id).FirstOrDefault();
+                        returnValue = reter;
                     }
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                returnValue = "Failed! - Exception - " + e;
+                // returnValue = "Failed! - Exception - " + e;
             }
             return returnValue;
         }

@@ -27,15 +27,27 @@ namespace PamSolution.Controllers
         public bool Allowed { get; set; }
     }
 
+    public class ServerAccess
+    {
+        public int ServerAccessId { get; set; }
+        public int? UserId { get; set; }
+        public int? DepartmentId { get; set; }
+        public int? ServerId { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? FinishTime { get; set; }
+        public int? StandardAccountId { get; set; }
+        public bool? Allowed { get; set; }
+    }
+
     public class ServerAccessLevelController : ApiController
     {
         // POST api/protectedAccount/getall
         [HttpPost, Route("api/protectedAccount/getAll")]
-        public List<serverAccessLevel> GetAll([FromBody]string value)
+        public List<ServerAccess> GetAll([FromBody]string value)
         {
             //Get the information from the application Get all access for a user.
             //string returnValue = "fail";
-            List<serverAccessLevel> returnValue = new List<serverAccessLevel>();
+            List<ServerAccess> returnValue = new List<ServerAccess>();
 
             try
             {
@@ -51,16 +63,16 @@ namespace PamSolution.Controllers
                         if (accessUser.permissionLevelId == 1 || accessUser.permissionLevelId == 2)
                         {
                             //Return Json List of levels
-                            List<serverAccessLevel> levelList = new List<serverAccessLevel>();
-                            levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT ServerAccessId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
+                            List<ServerAccess> levelList = new List<ServerAccess>();
+                            levelList = ctx.Database.SqlQuery<ServerAccess>("SELECT ServerAccessId, userId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
                             returnValue = levelList;
                         }else
                         {
                             if (accessUser.userId == postUser.Id)
                             {
                                 //Return Json List of levels
-                                List<serverAccessLevel> levelList = new List<serverAccessLevel>();
-                                levelList = ctx.Database.SqlQuery<serverAccessLevel>("SELECT ServerAccessId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
+                                List<ServerAccess> levelList = new List<ServerAccess>();
+                                levelList = ctx.Database.SqlQuery<ServerAccess>("SELECT ServerAccessId, userId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed FROM serverAccessLevel WHERE userId = " + postUser.Id + ";").ToList();
                                 returnValue = levelList;
                             }
                         }
@@ -68,9 +80,10 @@ namespace PamSolution.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //returnValue = "Failed! - Exception - " + e;
+                int i = 1;//Used so can breakpoint
             }
             return returnValue;
         }
