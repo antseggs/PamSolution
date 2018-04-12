@@ -16,35 +16,31 @@ namespace PamSolution.Controllers
 
         // POST api/automation/getAll
         [HttpPost, Route("api/automation/getAll")]
-        public string GetAll([FromBody]string value)
+        public List<automationScript> GetAll([FromBody]string value)
         {
             //Get the information from the application
-            string returnValue = "fail";
+            List<automationScript> returnValue = new List<automationScript>();
 
             try
             {
                 using (var ctx = new PamProjectEntities2())
                 {
-                    UserGetList postUser = JsonConvert.DeserializeObject<UserGetList>(value);
+                    GetAccessLevelUser postUser = JsonConvert.DeserializeObject<GetAccessLevelUser>(value);
                     //Is session active?
                     var userSession = ctx.activeSessions.SqlQuery("SELECT * FROM activeSessions WHERE sessionToken LIKE '" + postUser.SessionKey + "';").FirstOrDefault<activeSession>();
                     if (userSession.expireTime >= DateTime.Now)
                     {
-                        //Get user access level    
-                        serverAccessLevel currentUserLevel = new serverAccessLevel();
-                        currentUserLevel = ctx.Database.SqlQuery<serverAccessLevel>("SELECT * FROM serverAccessLevel WHERE usersId = " + userSession.userId + ";").FirstOrDefault();
-
                         //Return Json List of users
-                        List<UserGeneral> userList = new List<UserGeneral>();
-                        userList = ctx.Database.SqlQuery<UserGeneral>("SELECT * FROM automationScript WHERE serverAccessLevelId = " + currentUserLevel.serverAccessId + ";").ToList();
-                        returnValue = JsonConvert.SerializeObject(userList);
+                        List<automationScript> automationList = new List<automationScript>();
+                        automationList = ctx.Database.SqlQuery<automationScript>("SELECT * FROM automationScript WHERE serverOsId = " + postUser.Id + ";").ToList();
+                        returnValue = automationList;
                     }
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                returnValue = "Failed! - Exception - " + e;
+                //returnValue = "Failed! - Exception - " + e;
             }
             return returnValue;
         }
