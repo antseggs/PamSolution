@@ -36,10 +36,10 @@ namespace PamSolution.Controllers
 
         // POST api/protectedAccount/get
         [HttpPost, Route("api/protectedAccount/get")]
-        public string GetAll([FromBody]string value)
+        public protectedAccount GetAll([FromBody]string value)
         {
             //Get the information from the application
-            string returnValue = "fail";
+            protectedAccount returnValue = new protectedAccount();
 
             try
             {
@@ -51,14 +51,14 @@ namespace PamSolution.Controllers
                     if (userSession.expireTime >= DateTime.Now)
                     {      
                         //Return Json account details
-                        returnValue = JsonConvert.SerializeObject(ctx.Database.SqlQuery<protectedAccount>("SELECT * FROM protectedAccount WHERE serverId = " + postUser.Id).FirstOrDefault());
+                        returnValue = ctx.Database.SqlQuery<protectedAccount>("SELECT * FROM protectedAccount WHERE serverId = " + postUser.Id).FirstOrDefault();
                     }
                 }
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                returnValue = "Failed! - Exception - " + e;
+                //returnValue = "Failed! - Exception - " + e;
             }
             return returnValue;
         }
