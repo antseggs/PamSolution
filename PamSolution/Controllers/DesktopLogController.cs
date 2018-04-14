@@ -45,7 +45,7 @@ namespace PamSolution.Controllers
                         // find the permissionLevel of user from the User in database.
                         var userInfo = ctx.users.SqlQuery("SELECT * FROM users WHERE userId LIKE " + userSession.userId + ";").FirstOrDefault<user>();
                         // add all the data to the database.
-                        string sql = "INSERT INTO DesktopLog (userId, accessTime, logContentLocation, permissionLevelId, finishTime, userNote, protectedAccountId) VALUES (" + userInfo.userId + ",'" + DateTime.Now + "','" + postUser.LogContentLocation + "'," + userInfo.permissionLevelId + ",'" + postUser.FinishTime + "','" + postUser.UserNote + "'," + postUser.ProtectedAccountId + ");";
+                        string sql = "INSERT INTO DesktopLog (userId, accessTime, logContentLocation, permissionLevelId, finishTime, userNote, protectedAccountId) VALUES (" + userInfo.userId + ",'" + DateTime.Now.AddHours(12).ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + postUser.LogContentLocation + "'," + userInfo.permissionLevelId + ",'" + postUser.FinishTime + "','" + postUser.UserNote + "'," + postUser.ProtectedAccountId + ");";
                         ctx.Database.ExecuteSqlCommand(sql);
                         returnValue = "Pass!";
                     }
