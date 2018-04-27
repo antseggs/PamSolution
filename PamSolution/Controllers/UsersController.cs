@@ -44,16 +44,15 @@ namespace PamSolution.Controllers
 
     public class UsersController : ApiController
     {
-        //This controller is not complete!
         //This controller should be used to see if a user is logged in, if they are then perform CRUD against users in the system Either reading a list of users (if user is admin)
         //delete a user from the system, update a users details or create a new user in the system.
 
         // POST api/Users/getAll
         [HttpPost, Route("api/users/getAll")]
-        public string GetAll([FromBody]string value)
+        public List<UserGeneral> GetAll([FromBody]string value)
         {
             //Get the information from the application
-            string returnValue = "fail";
+            List<UserGeneral> returnValue = new List<UserGeneral>();
             
             try
             {
@@ -71,7 +70,7 @@ namespace PamSolution.Controllers
                             //Return Json List of users
                             List<UserGeneral> userList = new List<UserGeneral>();
                             userList = ctx.Database.SqlQuery<UserGeneral>("SELECT * FROM users").ToList();
-                            returnValue = JsonConvert.SerializeObject(userList);
+                            returnValue = userList;
                         }
                     }
                 }
@@ -79,7 +78,7 @@ namespace PamSolution.Controllers
             }
             catch (Exception e)
             {
-                returnValue = "Failed! - Exception - " + e;
+                //returnValue = "Failed! - Exception - " + e;
             }
             return returnValue;
         }
