@@ -139,7 +139,9 @@ namespace PamSolution.Controllers
                                 //Create new user!
                                 string sql = "INSERT INTO users (permissionLevelId, firstName, surname, jobTitle, departmentId, username, password, lastLoginDate, note) VALUES (" + postUser.PermissionLevelId + ",'" + postUser.FirstName + "','" + postUser.Surname + "','" + postUser.JobTitle + "'," + postUser.DepartmentId + ",'" + postUser.Username + "','" + postUser.Password + "','" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + postUser.Note + "');";
                                 ctx.Database.ExecuteSqlCommand(sql);
-                                returnValue = "Passed!";
+                                user resp = ctx.users.SqlQuery("SELECT * FROM users WHERE username LIKE '" + postUser.Username + "';").FirstOrDefault<user>();
+                                
+                                returnValue = resp.userId.ToString() + " Passed!";
                                 //CHECK FOR USERNAME CLASHES!!!!
                             }
                             else

@@ -145,14 +145,14 @@ namespace PamSolution.Controllers
                             if (postUser.ServerAccessId == -1)
                             {
                                 //Create new user!
-                                string sql = "INSERT INTO serverAccessLevel (userId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed) VALUES (" + postUser.UserId + "," + postUser.DepartmentId + "," + postUser.ServerAccessId + ",'" + postUser.StartTime + "','" + postUser.FinishTime + "'," + postUser.StandardAccountId + "," + postUser.Allowed + ");";
+                                string sql = "INSERT INTO serverAccessLevel (userId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed) VALUES (" + postUser.UserId + "," + postUser.DepartmentId + "," + postUser.ServerAccessId + ",'" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "'," + postUser.StandardAccountId + "," + postUser.Allowed + ");";
                                 ctx.Database.ExecuteSqlCommand(sql);
                                 returnValue = "Passed!";
                             }
                             else
                             {
                                 // ELSE update the user.
-                                string sql = "UPDATE serverAccessLevel SET userId = " + postUser.UserId + ", departmentId = " + postUser.DepartmentId + ", serverId = " + postUser.ServerId + ", startTime = '" + postUser.StartTime + "', finishTime = '" + postUser.FinishTime + "', standardAccountId = " + postUser.StandardAccountId + ", allowed = " + postUser.Allowed + " WHERE serverAccessId = " + postUser.ServerAccessId + ";";
+                                string sql = "UPDATE serverAccessLevel SET userId = " + postUser.UserId + ", departmentId = " + postUser.DepartmentId + ", serverId = " + postUser.ServerId + ", startTime = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', finishTime = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', standardAccountId = " + postUser.StandardAccountId + ", allowed = " + postUser.Allowed + " WHERE serverAccessId = " + postUser.ServerAccessId + ";";
                                 ctx.Database.ExecuteSqlCommand(sql);
                                 returnValue = "Passed!";
                             }
