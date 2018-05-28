@@ -100,7 +100,8 @@ namespace PamSolution.Controllers
                         if (accessUser.permissionLevelId == 1 || accessUser.permissionLevelId == 2)
                         {
                             // if both yes then run sql delete command on the ID passed into the controller.
-                            ctx.Database.ExecuteSqlCommand("DELETE FROM server WHERE serverId = " + postUser.Id + ";");
+                            var result = ctx.Database.ExecuteSqlCommand("DELETE FROM serverAccessLevel WHERE serverId = " + postUser.Id + ";");
+                            result = ctx.Database.ExecuteSqlCommand("DELETE FROM server WHERE serverId = " + postUser.Id + ";");
                             returnValue = "Pass!";
                         }
                     }
@@ -136,9 +137,11 @@ namespace PamSolution.Controllers
                             if (postUser.ServerId == -1)
                             {
                                 //Create new user!
-                                string sql = "INSERT INTO server (serverName, serverOsId, serverDescription, serverIp, ipStatic, fqdn, serverNote) VALUES ('" + postUser.ServerName + "'," + postUser.ServerOsId + ",'" + postUser.ServerDescription + "','" + postUser.ServerIp + "', " + postUser.IpStatic + ", '" + postUser.Fqdn + "','" + postUser.ServerNote + "');";
+                                string sql = "INSERT INTO server (serverName, serverOsId, serverDescription, serverIp, ipStatic, fqdn, serverNotes) VALUES ('" + postUser.ServerName + "'," + postUser.ServerOsId + ",'" + postUser.ServerDescription + "','" + postUser.ServerIp + "', 1, '" + postUser.Fqdn + "','" + postUser.ServerNote + "');";
                                 ctx.Database.ExecuteSqlCommand(sql);
-                                returnValue = "Passed!";
+                                sql = "SELECT * FROM server WHERE serverName LIKE '" + postUser.ServerName + "';";
+                                server resp = ctx.servers.SqlQuery(sql).FirstOrDefault<server>();
+                                returnValue = resp.serverId.ToString() + " Passed!";
                             }
                             else
                             {

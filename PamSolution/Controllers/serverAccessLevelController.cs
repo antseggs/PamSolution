@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,9 +22,9 @@ namespace PamSolution.Controllers
         public int UserId { get; set; }
         public int DepartmentId { get; set; }
         public int ServerId { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime FinishTime { get; set; }
-        public int StandardAccountId { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? FinishTime { get; set; }
+        public int? StandardAccountId { get; set; }
         public bool Allowed { get; set; }
     }
 
@@ -145,14 +146,14 @@ namespace PamSolution.Controllers
                             if (postUser.ServerAccessId == -1)
                             {
                                 //Create new user!
-                                string sql = "INSERT INTO serverAccessLevel (userId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed) VALUES (" + postUser.UserId + "," + postUser.DepartmentId + "," + postUser.ServerAccessId + ",'" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "'," + postUser.StandardAccountId + "," + postUser.Allowed + ");";
+                                string sql = "INSERT INTO serverAccessLevel (userId, departmentId, serverId, startTime, finishTime, standardAccountId, allowed) VALUES (" + postUser.UserId + "," + postUser.DepartmentId + "," + postUser.ServerId + ",'" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', " + (postUser.StandardAccountId ?? SqlInt32.Null)+ ", 1);";
                                 ctx.Database.ExecuteSqlCommand(sql);
                                 returnValue = "Passed!";
                             }
                             else
                             {
                                 // ELSE update the user.
-                                string sql = "UPDATE serverAccessLevel SET userId = " + postUser.UserId + ", departmentId = " + postUser.DepartmentId + ", serverId = " + postUser.ServerId + ", startTime = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', finishTime = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', standardAccountId = " + postUser.StandardAccountId + ", allowed = " + postUser.Allowed + " WHERE serverAccessId = " + postUser.ServerAccessId + ";";
+                                string sql = "UPDATE serverAccessLevel SET userId = " + postUser.UserId + ", departmentId = " + postUser.DepartmentId + ", serverId = " + postUser.ServerId + ", startTime = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', finishTime = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', standardAccountId = " + postUser.StandardAccountId + ", allowed = 1 WHERE serverAccessId = " + postUser.ServerAccessId + ";";
                                 ctx.Database.ExecuteSqlCommand(sql);
                                 returnValue = "Passed!";
                             }

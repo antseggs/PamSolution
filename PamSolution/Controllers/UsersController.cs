@@ -136,20 +136,28 @@ namespace PamSolution.Controllers
                             // check if id is blank, if user is blank then add the user to the table
                             if (postUser.UserId == -1)
                             {
-                                //Create new user!
-                                string sql = "INSERT INTO users (permissionLevelId, firstName, surname, jobTitle, departmentId, username, password, lastLoginDate, note) VALUES (" + postUser.PermissionLevelId + ",'" + postUser.FirstName + "','" + postUser.Surname + "','" + postUser.JobTitle + "'," + postUser.DepartmentId + ",'" + postUser.Username + "','" + postUser.Password + "','" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + postUser.Note + "');";
-                                ctx.Database.ExecuteSqlCommand(sql);
-                                user resp = ctx.users.SqlQuery("SELECT * FROM users WHERE username LIKE '" + postUser.Username + "';").FirstOrDefault<user>();
-                                
-                                returnValue = resp.userId.ToString() + " Passed!";
                                 //CHECK FOR USERNAME CLASHES!!!!
-                            }
+                                var usernameCheck = ctx.users.SqlQuery("SELECT * FROM users WHERE username LIKE '" + postUser.Username + "';").FirstOrDefault<user>();
+                                if (usernameCheck == null)
+                                {
+                                    //Create new user!
+                                    string sql = "INSERT INTO users (permissionLevelId, firstName, surname, jobTitle, departmentId, username, password, lastLoginDate, note) VALUES (" + postUser.PermissionLevelId + ",'" + postUser.FirstName + "','" + postUser.Surname + "','" + postUser.JobTitle + "'," + postUser.DepartmentId + ",'" + postUser.Username + "','" + postUser.Password + "','" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "','" + postUser.Note + "');";
+                                    ctx.Database.ExecuteSqlCommand(sql);
+                                    user resp = ctx.users.SqlQuery("SELECT * FROM users WHERE username LIKE '" + postUser.Username + "';").FirstOrDefault<user>();
+                                
+                                    returnValue = resp.userId.ToString() + " Passed!";
+                                }
+                                else
+                                {
+                                    returnValue = "Username Clash!";
+                                }
+                                
+                                }
                             else
                             {
                                 // ELSE update the user.
                                 string sql = "UPDATE users SET permissionLevelId =" + postUser.PermissionLevelId + ", firstName = '" + postUser.FirstName + "', surname = '" + postUser.Surname + "', jobtitle = '" + postUser.JobTitle + "', departmentId = " + postUser.DepartmentId + ", username = '" + postUser.Username + "', password = '" + postUser.Password + "', lastLoginDate = '" + DateTime.Now.ToString("yyy-MM-dd HH:mm:ss.fff") + "', note = '" + postUser.Note + "' WHERE userId = " + postUser.UserId + ";";
                                 ctx.Database.ExecuteSqlCommand(sql);
-                                //CHECK FOR USERNAME CLASHES!!!!
                                 returnValue = "Passed!";
                             }
                         }
